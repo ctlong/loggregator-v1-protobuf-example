@@ -27,14 +27,6 @@ func envelopeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// b, err := ioutil.ReadAll(r.Body)
-	// if err != nil {
-	// 	w.WriteHeader(http.StatusInternalServerError)
-	// 	log.Println("could not parse body")
-	// 	fmt.Fprintln(w, "error: could not parse body")
-	// 	return
-	// }
-
 	var e events.Envelope
 	err := jsonpb.Unmarshal(r.Body, &e)
 	if err != nil {
