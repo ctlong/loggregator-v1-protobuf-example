@@ -1,4 +1,4 @@
-# github.com/cloudfoundry/sonde-go v0.0.0-20220324234026-9851b3a0dce2
+# github.com/cloudfoundry/sonde-go v0.0.0-20220601183208-2e8277f3b5b0
 ## explicit; go 1.17
 github.com/cloudfoundry/sonde-go/events
 # github.com/gogo/protobuf v1.3.2
@@ -19,8 +19,8 @@ github.com/mailru/easyjson
 github.com/mailru/easyjson/buffer
 github.com/mailru/easyjson/jlexer
 github.com/mailru/easyjson/jwriter
-# google.golang.org/protobuf v1.26.0
-## explicit; go 1.9
+# google.golang.org/protobuf v1.28.0
+## explicit; go 1.11
 google.golang.org/protobuf/encoding/protojson
 google.golang.org/protobuf/encoding/prototext
 google.golang.org/protobuf/encoding/protowire
