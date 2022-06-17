@@ -6,6 +6,7 @@ import (
 
 	"github.com/cloudfoundry/sonde-go/events"
 
+	gogoproto "github.com/gogo/protobuf/proto"
 	"github.com/golang/protobuf/jsonpb"
 	"github.com/mailru/easyjson"
 )
@@ -14,7 +15,7 @@ var (
 	marshaler = jsonpb.Marshaler{}
 
 	oldEnvelope = &events.Envelope{
-		Origin:    &origin,
+		Origin:    gogoproto.String("my-origin"),
 		EventType: events.Envelope_LogMessage.Enum(),
 	}
 )
@@ -33,6 +34,16 @@ func BenchmarkOldProtoMarshal(b *testing.B) {
 func BenchmarkOldProtoEasyMarshal(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		_, err := easyjson.Marshal(oldEnvelope)
+		if err != nil {
+			b.Fatal("Marshaling error:", err)
+		}
+	}
+}
+
+// Benchmark old proto gogo marshalling
+func BenchmarkOldProtoGogoMarshal(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		_, err := gogoproto.Marshal(oldEnvelope)
 		if err != nil {
 			b.Fatal("Marshaling error:", err)
 		}
@@ -67,6 +78,22 @@ func BenchmarkOldProtoEasyUnmarshal(b *testing.B) {
 	var e events.Envelope
 	for i := 0; i < b.N; i++ {
 		err := easyjson.Unmarshal(buf.buf, &e)
+		if err != nil {
+			b.Fatal("Unmarshaling error:", err)
+		}
+	}
+}
+
+// Benchmark old proto gogo unmarshalling
+func BenchmarkOldProtoGogoUnmarshal(b *testing.B) {
+	buf, err := gogoproto.Marshal(oldEnvelope)
+	if err != nil {
+		b.Fatal("Marshaling error:", err)
+	}
+
+	var e events.Envelope
+	for i := 0; i < b.N; i++ {
+		err := gogoproto.Unmarshal(buf, &e)
 		if err != nil {
 			b.Fatal("Unmarshaling error:", err)
 		}
