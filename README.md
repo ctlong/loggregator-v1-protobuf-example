@@ -23,3 +23,9 @@ An example for how old loggregator v1 generated protobuf files might compare to 
 1. Run a client against it, either:
   1. Run the old client with `make run-old-client`,
   1. Or, run the new client with `make run-new-client`.
+
+## Test
+
+```
+go test -bench=.
+```
